@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>再次遇见 · 开云</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, "PingFang SC", "Noto Sans SC", system-ui, sans-serif;
+            background: #f4f9fc;
+            color: #1a2e3c;
+            line-height: 1.7;
+            padding: 24px 16px 56px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .page {
+            max-width: 820px;
+            width: 100%;
+        }
+        /* 网格卡片背景（极淡纹理） */
+        .entry-card {
+            background: rgba(255,255,255,0.80);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            border-radius: 28px;
+            box-shadow: 0 8px 28px rgba(0, 60, 70, 0.06);
+            padding: 32px 24px;
+            margin-bottom: 28px;
+            border: 1px solid rgba(60, 150, 150, 0.12);
+            background-image: 
+                linear-gradient(90deg, rgba(30, 130, 130, 0.04) 1px, transparent 1px),
+                linear-gradient(rgba(30, 130, 130, 0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+            transition: transform 0.2s ease, box-shadow 0.25s;
+        }
+        .entry-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(30, 130, 130, 0.08);
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0a383f;
+            margin-bottom: 0.4rem;
+            line-height: 1.2;
+            display: flex;
+            align-items: center;
+        }
+        h1 small {
+            font-size: 0.7rem;
+            font-weight: 400;
+            background: #d1e9e9;
+            color: #1f5e5e;
+            padding: 0.1rem 0.8rem;
+            border-radius: 40px;
+            margin-left: 14px;
+            letter-spacing: 0.3px;
+        }
+        .subhead {
+            font-size: 1.05rem;
+            color: #346f6f;
+            border-left: 4px solid #509b9b;
+            padding-left: 16px;
+            margin: 12px 0 20px 0;
+            background: rgba(60, 130, 130, 0.04);
+            border-radius: 0 12px 12px 0;
+        }
+        .meta-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 20px;
+            font-size: 0.85rem;
+            color: #4f7a7a;
+            border-bottom: 1px dashed #b7d6d6;
+            padding-bottom: 18px;
+            margin-bottom: 24px;
+        }
+        .meta-line span {
+            background: #e1f0f0;
+            padding: 2px 12px;
+            border-radius: 40px;
+        }
+        .article-body p {
+            margin-bottom: 1.3rem;
+            font-size: 1rem;
+            color: #1a3338;
+        }
+        .article-body strong {
+            color: #0c4b4b;
+            font-weight: 600;
+        }
+        .quote-box {
+            background: #e5f2f2;
+            padding: 20px 24px;
+            border-radius: 24px;
+            margin: 28px 0;
+            border-left: 6px solid #2d8585;
+            font-style: normal;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02);
+        }
+        .quote-box p {
+            margin-bottom: 0.4rem;
+            font-size: 1rem;
+        }
+        .quote-box .source {
+            font-size: 0.9rem;
+            color: #2e6b6b;
+            margin-top: 10px;
+        }
+        .access-sentence {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            padding: 12px 24px;
+            margin: 32px 0 24px;
+            font-size: 1.05rem;
+            text-align: center;
+            border: 1px solid #b0d6d6;
+            box-shadow: 0 2px 10px rgba(20, 90, 90, 0.06);
+        }
+        .btn-ghost {
+            display: inline-block;
+            background: transparent;
+            border: 1.5px solid #3c8c8c;
+            color: #1a5c5c;
+            padding: 0.4rem 1.6rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            margin-top: 4px;
+        }
+        .btn-ghost:hover {
+            background: #3c8c8c15;
+            border-color: #2a6b6b;
+        }
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0 16px;
+        }
+        .faq-item {
+            background: rgba(255,255,255,0.5);
+            border-radius: 20px;
+            padding: 16px 18px;
+            border: 1px solid #badada;
+            transition: 0.15s;
+        }
+        .faq-item h4 {
+            font-size: 0.95rem;
+            color: #104f4f;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+        .faq-item h4::before {
+            content: "∿";
+            margin-right: 8px;
+            color: #388b8b;
+            font-weight: 300;
+        }
+        .faq-item p {
+            font-size: 0.9rem;
+            color: #2b5151;
+        }
+        .faq-item:hover {
+            background: white;
+            border-color: #63abab;
+        }
+        .footer-note {
+            border-top: 1px solid #c6dede;
+            padding-top: 32px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #4b7777;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .footer-note a {
+            color: #216161;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: #8fbfbf;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 14px 12px 48px;
+            }
+            .entry-card {
+                padding: 24px 18px;
+                border-radius: 22px;
+            }
+            h1 {
+                font-size: 1.8rem;
+                flex-wrap: wrap;
+            }
+            h1 small {
+                margin-left: 0;
+                margin-top: 6px;
+            }
+            .faq-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .meta-line {
+                gap: 8px 14px;
+            }
+            .access-sentence {
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
+        }
+        @media (max-width: 420px) {
+            .quote-box {
+                padding: 16px;
+            }
+            .btn-ghost {
+                padding: 0.3rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+        /* 保持可读性 */
+        a {
+            transition: color 0.15s;
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="entry-card">
+        <h1>
+            收藏夹里的那页光
+            <small>再访笔记</small>
+        </h1>
+        <div class="subhead">有些页面值得不止一次打开，比如 <a href="https://chs-kaaiyun.com" style="color:#0a5e5e; text-decoration: underline; text-underline-offset:3px;">开云</a> —— 它不是偶然的停留，而是可以反复回味的角落。</div>
+
+        <div class="meta-line">
+            <span>📌 第3次访问</span>
+            <span>📅 常驻书签</span>
+            <span>🕊️ 慢阅读</span>
+        </div>
+
+        <div class="article-body">
+            <p>回想第一次遇见 <strong>开云</strong> 的场景，其实说不上隆重。只是某个下午顺着链接滑了进去，页面干净，叙述不急不缓，像是有人替你整理好了一片树荫。后来再想去，发现自己已经下意识把它留在了浏览器的书签栏里——不是那种“以后可能有用”的囤积，而是“下回还想坐坐”的惦记。</p>
+
+            <p>我有个不算习惯的习惯：每隔一段时间，会翻一遍收藏夹里那些安安静静的站点。很多当初觉得不错的地方，再打开要么变了模样，要么已经不再更新。而 <strong>开云</strong> 是少数几处让我每次点进去都觉得“还在，而且更好”的地方。内容在生长，版面却始终维持着那种低饱和的从容，字体、间距、留白都像被认真呼吸过。</p>
+
+            <div class="quote-box">
+                <p>“收藏不是占有，是给未来的自己留一扇虚掩的门。而有些门，推开的次数越多，越觉得里面亮堂。”</p>
+                <div class="source">—— 某次笔记页边的随手记</div>
+            </div>
+
+            <p>上周末我又去了一次。这次留意到一些之前忽略的细节：页面里的小卡片布局、蓝绿色调在不同段落的深浅变化，甚至每个链接的悬停反馈都带着一致的温和感。内容本身没有刻意煽动情绪，但你能感到写东西的人对文字有尊重，不赶时间，不凑字数。这种气质在现在的网络里越来越稀有。</p>
+
+            <p>我把链接分享给了两个朋友，其中一个回我：“这个站我好像很久前存过，但忘了看。” 我说不急，它又不会跑。好的内容就像一棵自己生长的树，你隔段时间去，它只是多了一圈年轮，枝桠更舒展了些，根还在原来的土里。<strong>开云</strong> 给我的感觉就是这样——不追流量，不喊口号，只是安静地提供值得一读再读的东西。</p>
+        </div>
+
+        <!-- 嵌入链接的访问句 -->
+        <div class="access-sentence">
+            📬 如果你也刚好路过，不妨把 <a href="https://chs-kaaiyun.com" style="color:#165050; font-weight:600; text-decoration: underline; text-underline-offset:4px;">开云</a> 加入书签，之后某个想安静待一会儿的下午，它会是一个好去处。
+        </div>
+
+        <!-- FAQ 摘要 / 小提示卡片 -->
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>收藏后还能找到吗？</h4>
+                <p>浏览器书签或稍后读工具都合适。页面结构稳定，不会突然变样。</p>
+            </div>
+            <div class="faq-item">
+                <h4>内容更新频率？</h4>
+                <p>不算密集，但每篇都有分量。适合不追新、重品质的阅读节奏。</p>
+            </div>
+            <div class="faq-item">
+                <h4>移动端体验如何？</h4>
+                <p>适配做得自然，卡片和字体在手机上一样舒服，横竖屏都友好。</p>
+            </div>
+            <div class="faq-item">
+                <h4>有没有订阅方式？</h4>
+                <p>直接保存链接即可。目前主要通过页面本身传递内容，简洁直接。</p>
+            </div>
+        </div>
+
+        <div style="text-align: right; margin-top: 16px;">
+            <a href="https://chs-kaaiyun.com" class="btn-ghost">开云</a>
+        </div>
+
+        <div class="footer-note">
+            <div>⊹ 保持好奇，保持回访 ⊹</div>
+            <div style="font-size:0.8rem; opacity:0.7;">收藏 · 重读 · 慢下来 —— 这就是我理解中的持续关注。</div>
+        </div>
+    </div>
+    <!-- 隐式种子标记（仅用于变化，不显示） -->
+</div>
+</body>
+</html>
